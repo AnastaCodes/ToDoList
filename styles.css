@@ -1,0 +1,191 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  background: #06124d;
+  color: #54595e;
+}
+.main {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 30px;
+}
+.main::before {
+  position: absolute;
+  content: "";
+  background-image: url("./img/background.webp");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  mix-blend-mode: lighten;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #f6fbff;
+  text-shadow: 4px 4px 14px rgb(0, 0, 0);
+}
+
+form label {
+  display: none;
+}
+button {
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+}
+.title-container {
+  padding: 40px;
+  text-align: center;
+  color: black;
+  display: grid;
+  align-content: center;
+}
+.footer-container {
+  background: #edeef3;
+}
+
+.main-container {
+  display: grid;
+  justify-content: center;
+  background: white;
+  width: 500px;
+  min-width: 500px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  webkit-box-shadow: 0px 8px 35px 0px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 8px 35px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 8px 35px 0px rgba(0, 0, 0, 0.16);
+}
+.header-container,
+.body-container,
+.footer-container,
+.main-container {
+  min-width: 500px;
+}
+.header-container,
+.body-container ul,
+.footer-container {
+  padding: 25px;
+}
+
+.header-container {
+  border-bottom: 1px solid #edeef3;
+}
+.header-container form,
+.footer-container,
+.body-container ul li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container form input#add {
+  width: 100%;
+  margin-right: 25px;
+  border-radius: 4px;
+  border: 1px solid #edeef3;
+  padding: 10px;
+}
+
+.header-container form input:focus-visible {
+  outline: 1px solid #10b395;
+}
+
+.header-container form [type="submit"] {
+  color: white;
+  border-radius: 4px;
+  padding: 10px 48px;
+  border: none;
+  background: #272829;
+}
+.header-container form [type="submit"]:hover {
+  background: #10b395;
+}
+
+.body-container {
+  display: grid;
+  /* flex-wrap: wrap;
+    gap: 20px;
+    max-width: 80vw;
+    margin: 0 auto;
+    margin-top: 15vh;
+    justify-content: flex-start;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));*/
+}
+.body-container ul {
+  list-style-type: none;
+}
+.body-container ul li {
+  padding: 10px 0;
+}
+.body-container .input-container {
+  margin-right: 25px;
+  margin-right: 25px;
+  display: flex;
+  align-items: center;
+}
+/* сделать покрасивше*/
+.body-container [type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #7749f8;
+
+  /* outline: 1px solid #1e5180;*/
+}
+
+.input-container input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: grey;
+}
+.body-container li #deleteItem {
+  padding: 0;
+  background: 0;
+  border: 0;
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+.body-container li #deleteItem:hover {
+  color: #272829;
+}
+.footer-container #deleteCompleted {
+  background: #6c757d;
+}
+.footer-container #deleteCompleted,
+.footer-container #deleteAll {
+  border: none;
+  color: white;
+}
+.footer-container #deleteCompleted:hover {
+  background: #272829;
+}
+.footer-container #deleteAll {
+  background: #dc3545;
+}
+.footer-container #deleteAll:hover {
+  background: #8d1e29;
+}
+.header-container form [type="submit"],
+.footer-container #deleteCompleted,
+.footer-container #deleteAll,
+.body-container li #deleteItem {
+  transition: all 0.3s ease-in-out;
+}
+
+.body-container ul {
+  display: none;
+}
+
+.footer-container {
+  transition: all 0.7s ease-in;
+  opacity: 0;
+  display: none;
+}
