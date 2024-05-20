@@ -133,6 +133,7 @@ button {
   margin-right: 25px;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 /* сделать покрасивше*/
 .body-container [type="checkbox"] {
@@ -153,7 +154,16 @@ button {
   color: #dc3545;
   font-size: 1.5rem;
 }
-.body-container li #deleteItem:hover {
+.body-container li #editItem{
+    padding: 0 10px;
+    background: 0;
+    border: 0;
+    color: #0e9056;
+    font-size: 1.1rem;
+}
+
+.body-container li #deleteItem:hover,
+.body-container li #editItem:hover {
   color: #272829;
 }
 .footer-container #deleteCompleted {
@@ -176,7 +186,8 @@ button {
 .header-container form [type="submit"],
 .footer-container #deleteCompleted,
 .footer-container #deleteAll,
-.body-container li #deleteItem {
+.body-container li #deleteItem,
+.body-container li #editItem {
   transition: all 0.3s ease-in-out;
 }
 

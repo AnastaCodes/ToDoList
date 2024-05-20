@@ -5,7 +5,8 @@ const addItem = document.querySelector("#addItem");
 const deleteAll = document.querySelector("#deleteAll");
 const deleteCompleted = document.querySelector("#deleteCompleted");
 
-let val = 0;
+let checkboxId = 0;
+let editing = false;
 
 function createLi(inputId, inputValue) {
   const li = document.createElement("li");
@@ -14,9 +15,13 @@ function createLi(inputId, inputValue) {
         <input type="checkbox" id="${inputId}" />
         <label for="${inputId}">${inputValue}</label>
     </div>
+    <button id="editItem">
+        <i class="fa-solid fa-pencil"></i>
+     </button>
      <button id="deleteItem">
         <i class="fa-solid fa-xmark"></i>
-     </button>`;
+     </button>
+     `;
    mainContainer.appendChild(li);
 }
 
@@ -24,7 +29,7 @@ addItem.addEventListener("submit", addNewItem);
 
 deleteAll.addEventListener("click", () => {
   mainContainer.innerHTML = "";
-  val = 0;
+  checkboxId = 0;
   checkMainContainer();
 });
 
@@ -39,23 +44,53 @@ deleteCompleted.addEventListener("click", () => {
 
 mainContainer.addEventListener("click", (event) => {
   const currentItem = event.target;
+  const parentLi = currentItem.closest("li");
+
   if (event.target.parentNode.id === "deleteItem") {
     currentItem.closest("li").remove();
     checkMainContainer();
   }
+
+  if (event.target.parentNode.id === "editItem" && editing === false)  {
+    const altLabel = parentLi.querySelector('label');
+    event.target.classList.add("fa-square-check");
+    event.target.classList.remove("fa-pencil");
+    editing = true;
+
+    let altLabelValue = altLabel.innerHTML;
+    let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />` 
+    altLabel.innerHTML= tempInput;
+    return;
+  }
+  if (event.target.parentNode.id === "editItem" && editing === true)  {
+    const inputCurrent = parentLi.querySelector("input#edit").value;
+    event.target.classList.add("fa-pencil");
+    event.target.classList.remove("fa-square-check");
+    editing = false;
+   
+    if(inputCurrent){
+        parentLi.querySelector('label').innerHTML = inputCurrent
+    }else{
+        currentItem.closest("li").remove();
+        checkMainContainer();
+    }
+    return;
+  }
 });
 
+function editValue(){
+    console.log()
 
-
+}
 
 function addNewItem(event) {
   event.preventDefault();
   if (inputItem.value === "") {
     return;
   }
-  val++;
+  checkboxId++;
   let inputValue = inputItem.value;
-  let inputId = "checkbox-" + val;
+  let inputId = "checkbox-" + checkboxId;
   createLi(inputId, inputValue);
   inputItem.value = "";
   checkMainContainer()
