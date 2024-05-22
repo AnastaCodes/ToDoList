@@ -22,7 +22,7 @@ function createLi(inputId, inputValue) {
         <i class="fa-solid fa-xmark"></i>
      </button>
      `;
-   mainContainer.appendChild(li);
+  mainContainer.appendChild(li);
 }
 
 addItem.addEventListener("submit", addNewItem);
@@ -46,42 +46,81 @@ mainContainer.addEventListener("click", (event) => {
   const currentItem = event.target;
   const parentLi = currentItem.closest("li");
 
+  // если нажат крестик
   if (event.target.parentNode.id === "deleteItem") {
     currentItem.closest("li").remove();
     checkMainContainer();
   }
 
-  if (event.target.parentNode.id === "editItem" && editing === false)  {
-    const altLabel = parentLi.querySelector('label');
-    event.target.classList.add("fa-square-check");
-    event.target.classList.remove("fa-pencil");
-    editing = true;
-
-    let altLabelValue = altLabel.innerHTML;
-    let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />` 
-    altLabel.innerHTML= tempInput;
+  //если не редактируется ещё
+  if (event.target.parentNode.id === "editItem" && editing === false) {
+    newItem(parentLi, event);
     return;
   }
-  if (event.target.parentNode.id === "editItem" && editing === true)  {
-    const inputCurrent = parentLi.querySelector("input#edit").value;
-    event.target.classList.add("fa-pencil");
-    event.target.classList.remove("fa-square-check");
-    editing = false;
-   
-    if(inputCurrent){
-        parentLi.querySelector('label').innerHTML = inputCurrent
-    }else{
-        currentItem.closest("li").remove();
-        checkMainContainer();
+
+  //если уже редактируется
+  if (event.target.parentNode.id === "editItem" && editing === true) {
+    // проверять через иконку !!!! === 1
+    console.log("УЖЕ РЕДАКТИРУЕТСЯ ");
+    let iconCheck = document.querySelectorAll(".fa-square-check");
+    if (iconCheck.length === 1) {
+      let current = document.querySelector(".fa-square-check");
+      console.log("ТУТ ");
+
+      let currentParentLi = current.closest("li");
+      if (parentLi === currentParentLi) {
+        const inputCurrent = parentLi.querySelector("input#edit").value;
+        event.target.classList.add("fa-pencil");
+        event.target.classList.remove("fa-square-check");
+        editing = false;
+
+        //если значение input не равно 0
+        if (inputCurrent) {
+          parentLi.querySelector("label").innerHTML = inputCurrent;
+        } else {
+          currentItem.closest("li").remove();
+          checkMainContainer();
+        }
+      } else {
+        let current = document.querySelector(".fa-square-check");
+        console.log("ТУТ ");
+  
+        let currentParentLi = current.closest("li");
+        const altLabel = currentParentLi.querySelector("label");
+        const inputCurrent = currentParentLi.querySelector("input#edit").value;
+        altLabel.innerHTML = inputCurrent;
+        current.classList.add("fa-pencil");
+        current.classList.remove("fa-square-check");
+        editing = false;
+        newItem(parentLi, event);
+      }
+    } else {
+      console.log("ЗДЕСЬ");
+      const altLabel = parentLi.querySelector("label");
+      event.target.classList.add("fa-square-check");
+      event.target.classList.remove("fa-pencil");
+      editing = true;
+
+      let altLabelValue = altLabel.innerHTML;
+      let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />`;
+      altLabel.innerHTML = tempInput;
     }
+
     return;
   }
 });
 
-function editValue(){
-    console.log()
+function newItem(parentLi, event) {
+  const altLabel = parentLi.querySelector("label");
+  event.target.classList.add("fa-square-check");
+  event.target.classList.remove("fa-pencil");
+  editing = true;
 
+  let altLabelValue = altLabel.innerHTML;
+  let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />`;
+  altLabel.innerHTML = tempInput;
 }
+
 
 function addNewItem(event) {
   event.preventDefault();
@@ -93,17 +132,17 @@ function addNewItem(event) {
   let inputId = "checkbox-" + checkboxId;
   createLi(inputId, inputValue);
   inputItem.value = "";
-  checkMainContainer()
+  checkMainContainer();
 }
 
-function checkMainContainer(){
-    if(mainContainer.querySelectorAll("li").length > 0){
-        mainContainer.style.display = "block";
-        footerContainer.style.display = "flex";
-        footerContainer.style.opacity = "1";
-    }else{
-        mainContainer.style.display = "none";
-        footerContainer.style.display = "none";
-        footerContainer.style.opacity = "0";
-    }
+function checkMainContainer() {
+  if (mainContainer.querySelectorAll("li").length > 0) {
+    mainContainer.style.display = "block";
+    footerContainer.style.display = "flex";
+    footerContainer.style.opacity = "1";
+  } else {
+    mainContainer.style.display = "none";
+    footerContainer.style.display = "none";
+    footerContainer.style.opacity = "0";
+  }
 }
