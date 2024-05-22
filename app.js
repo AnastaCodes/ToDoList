@@ -1,9 +1,9 @@
 const mainContainer = document.querySelector(".body-container ul");
 const footerContainer = document.querySelector(".footer-container");
+const deleteCompleted = document.querySelector("#deleteCompleted");
 const inputItem = document.querySelector("#add");
 const addItem = document.querySelector("#addItem");
 const deleteAll = document.querySelector("#deleteAll");
-const deleteCompleted = document.querySelector("#deleteCompleted");
 
 let checkboxId = 0;
 let editing = false;
@@ -52,7 +52,7 @@ mainContainer.addEventListener("click", (event) => {
     checkMainContainer();
   }
 
-  //если не редактируется ещё
+  //если пока не редактируется
   if (event.target.parentNode.id === "editItem" && editing === false) {
     newItem(parentLi, event);
     return;
@@ -60,14 +60,9 @@ mainContainer.addEventListener("click", (event) => {
 
   //если уже редактируется
   if (event.target.parentNode.id === "editItem" && editing === true) {
-    // проверять через иконку !!!! === 1
-    console.log("УЖЕ РЕДАКТИРУЕТСЯ ");
-    let iconCheck = document.querySelectorAll(".fa-square-check");
-    if (iconCheck.length === 1) {
-      let current = document.querySelector(".fa-square-check");
-      console.log("ТУТ ");
+      const currentLi = document.querySelector(".fa-square-check");
+      const currentParentLi = currentLi.closest("li");
 
-      let currentParentLi = current.closest("li");
       if (parentLi === currentParentLi) {
         const inputCurrent = parentLi.querySelector("input#edit").value;
         event.target.classList.add("fa-pencil");
@@ -82,30 +77,14 @@ mainContainer.addEventListener("click", (event) => {
           checkMainContainer();
         }
       } else {
-        let current = document.querySelector(".fa-square-check");
-        console.log("ТУТ ");
-  
-        let currentParentLi = current.closest("li");
         const altLabel = currentParentLi.querySelector("label");
         const inputCurrent = currentParentLi.querySelector("input#edit").value;
         altLabel.innerHTML = inputCurrent;
-        current.classList.add("fa-pencil");
-        current.classList.remove("fa-square-check");
+        currentLi.classList.add("fa-pencil");
+        currentLi.classList.remove("fa-square-check");
         editing = false;
         newItem(parentLi, event);
       }
-    } else {
-      console.log("ЗДЕСЬ");
-      const altLabel = parentLi.querySelector("label");
-      event.target.classList.add("fa-square-check");
-      event.target.classList.remove("fa-pencil");
-      editing = true;
-
-      let altLabelValue = altLabel.innerHTML;
-      let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />`;
-      altLabel.innerHTML = tempInput;
-    }
-
     return;
   }
 });
@@ -115,7 +94,6 @@ function newItem(parentLi, event) {
   event.target.classList.add("fa-square-check");
   event.target.classList.remove("fa-pencil");
   editing = true;
-
   let altLabelValue = altLabel.innerHTML;
   let tempInput = `<input type="text" id="edit"  value="${altLabelValue}" />`;
   altLabel.innerHTML = tempInput;
