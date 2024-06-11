@@ -74,7 +74,7 @@ button {
   min-width: 500px;
 }
 .header-container,
-.body-container ul,
+#body-container ul,
 .footer-container {
   padding: 25px;
 }
@@ -84,12 +84,13 @@ button {
 }
 .header-container form,
 .footer-container,
-.body-container ul li {
+#body-container ul li {
   display: flex;
   justify-content: space-between;
 }
 
-.header-container form input#add {
+.header-container form input#add,
+.input-container input#edit {
   width: 100%;
   margin-right: 25px;
   border-radius: 4px;
@@ -107,6 +108,7 @@ button {
   padding: 10px 48px;
   border: none;
   background: #272829;
+  cursor: pointer;
 }
 .header-container form [type="submit"]:hover {
   background: #10b395;
@@ -122,13 +124,13 @@ button {
     justify-content: flex-start;
     grid-template-columns: repeat(auto-fill, minmax(300px,1fr));*/
 }
-.body-container ul {
+#body-container ul {
   list-style-type: none;
 }
-.body-container ul li {
+#body-container ul li {
   padding: 10px 0;
 }
-.body-container .input-container {
+#body-container .input-container {
   margin-right: 25px;
   margin-right: 25px;
   display: flex;
@@ -136,7 +138,7 @@ button {
   width: 100%;
 }
 /* сделать покрасивше*/
-.body-container [type="checkbox"] {
+#body-container [type="checkbox"] {
   margin-right: 10px;
   accent-color: #7749f8;
 
@@ -147,14 +149,14 @@ button {
   text-decoration: line-through;
   color: grey;
 }
-.body-container li #deleteItem {
+#body-container li .deleteItem {
   padding: 0;
   background: 0;
   border: 0;
   color: #dc3545;
   font-size: 1.5rem;
 }
-.body-container li #editItem{
+#body-container li .editItem{
     padding: 0 10px;
     background: 0;
     border: 0;
@@ -162,8 +164,8 @@ button {
     font-size: 1.1rem;
 }
 
-.body-container li #deleteItem:hover,
-.body-container li #editItem:hover {
+#body-container li .deleteItem:hover,
+#body-container li .editItem:hover {
   color: #272829;
 }
 .footer-container #deleteCompleted {
@@ -186,12 +188,12 @@ button {
 .header-container form [type="submit"],
 .footer-container #deleteCompleted,
 .footer-container #deleteAll,
-.body-container li #deleteItem,
-.body-container li #editItem {
+#body-container li .deleteItem,
+#body-container li .editItem {
   transition: all 0.3s ease-in-out;
 }
 
-.body-container ul {
+#body-container ul {
   display: none;
 }
 
